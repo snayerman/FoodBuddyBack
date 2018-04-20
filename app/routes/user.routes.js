@@ -26,7 +26,7 @@ module.exports = function(app) {
       
       var errors = req.validationErrors();
       
-      if(errors.length == 0)
+      if(!errors || errors.length == 0)
          users.signup(req, res);
       else {
          return res.status(400).send(errors);
