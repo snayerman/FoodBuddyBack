@@ -56,6 +56,7 @@ require('./app/routes/recipe.routes.js')(app);
 // require('./app/routes/post.routes.js')(app);
 
 // listen for requests
-app.listen(3001, function(){
-    console.log("Server is listening on port 3001");
+var port = process.env.PORT || 3001;
+app.listen(port, function(){
+    console.log("Server is listening on port "+port);
 });
