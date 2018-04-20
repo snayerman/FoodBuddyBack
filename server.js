@@ -43,7 +43,7 @@ mongoose.connection.on('error', function() {
 });
 mongoose.connection.once('open', function() {
     console.log("Successfully connected to the database");
-})
+});
 
 // define a simple route
 app.get('/', function(req, res){
