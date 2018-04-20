@@ -54,11 +54,9 @@ exports.searchForRecipes = function(req, res) {
       })
    }
 
-   // console.log(url);
+   url += `number=5&fillIngredients=true&instructionsRequired=true&ranking=1`;
 
    requestConfig.url = url;
-
-   console.log(requestConfig);
 
    axios(requestConfig).then(recipes => {
       return res.send(recipes.data);
