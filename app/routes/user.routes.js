@@ -1,4 +1,4 @@
-const { check, validationResult } = require('express-validator/check');
+const { check, validationResult, oneOf } = require('express-validator/check');
 const { matchedData, sanitize } = require('express-validator/filter');
 var exp = require('express-validator');
 var validator = require('validator');
@@ -14,11 +14,15 @@ module.exports = function(app) {
       }
    */
    app.post('/signup', function(req, res) {
-      req.check('userName')
-         .exists().withMessage('No username entered')
-         .isLength({min: 1}).withMessage('Username too short')
-         .check('password')
-         .exists().withMessage('No password')
+      oneOf([
+         req.check('userName')
+            .exists().withMessage('No username entered')
+            .isLength({min: 1}).withMessage('Username too short'),
+         req.check('password')
+            .exists().withMessage('No password entered')
+            .isLength({min: 5}).withMessage('Password too short')
+         ]
+      );
       
       var errors = req.validationErrors();
       
