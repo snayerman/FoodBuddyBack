@@ -1,9 +1,23 @@
+const { check, validationResult } = require('express-validator/check');
+const { matchedData, sanitize } = require('express-validator/filter');
+var exp = require('express-validator');
+var validator = require('validator');
+
 module.exports = function(app) {
 
    var users = require('../controllers/user.controller.js');
 
-   // Create a new User
-   app.post('/signup', users.signup);
+   /* Create new user
+      Body: {
+         userName: String,
+         password: String
+      }
+   */
+   app.post('/signup', function(req, res) {
+      req.check('userName').exists().withMessage('No username entered').isLength({min: 1}).withMessage('Username too short');
+      console.log(req.validationErrors());
+      users.signup(req, res);
+   });
 
    // Get all users
    app.get('/allUsers', users.getAllUsers);

@@ -18,9 +18,12 @@
   },
   "homepage": "https://github.com/snayerman/ReactSocialMediaProjectFRONT_END#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "bcrypt": "^1.0.3",
     "express": "^4.16.3",
+    "express-validator": "^5.1.2",
     "jsonwebtoken": "^8.2.0",
-    "mongoose": "^5.0.10"
+    "mongoose": "^5.0.10",
+    "validator": "^9.4.1"
   }
 }

@@ -1,6 +1,9 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 
+var expressValidator = require('express-validator');
+var validator = require('validator');
+
 // create express app
 var app = express();
 
@@ -19,6 +22,9 @@ app.use(function(req, res, next) {
 
 // parse application/json
 app.use(bodyParser.json())
+
+// use validator
+app.use(expressValidator());
 
 // Configuring the database
 // var dbConfig = require('./config/database.config.js');
@@ -46,6 +52,7 @@ app.get('/', function(req, res){
 
 // require('./app/routes/note.routes.js')(app);
 require('./app/routes/user.routes.js')(app);
+require('./app/routes/recipe.routes.js')(app);
 // require('./app/routes/post.routes.js')(app);
 
 // listen for requests
