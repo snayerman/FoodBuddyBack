@@ -14,9 +14,19 @@ module.exports = function(app) {
       }
    */
    app.post('/signup', function(req, res) {
-      req.check('userName').exists().withMessage('No username entered').isLength({min: 1}).withMessage('Username too short');
-      console.log(req.validationErrors());
-      users.signup(req, res);
+      req.check('userName')
+         .exists().withMessage('No username entered')
+         .isLength({min: 1}).withMessage('Username too short')
+         .check('password')
+         .exists().withMessage('No password')
+      
+      var errors = req.validationErrors();
+      
+      if(errors.length == 0)
+         users.signup(req, res);
+      else {
+         return res.status(400).send(errors);
+      }
    });
 
    // Get all users
