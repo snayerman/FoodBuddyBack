@@ -4,7 +4,7 @@
   "description": "server for project",
   "main": "server.js",
   "scripts": {
-    "test": "test",
+    "test": "./node_modules/mocha/bin/mocha",
     "run": "nodemon server.js"
   },
   "repository": {
@@ -25,5 +25,8 @@
     "jsonwebtoken": "^8.2.0",
     "mongoose": "^5.0.10",
     "validator": "^9.4.1"
+  },
+  "devDependencies": {
+    "mocha": "^5.1.1"
   }
 }
