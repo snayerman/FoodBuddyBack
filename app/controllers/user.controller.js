@@ -6,16 +6,45 @@ var dbConfig = require('../../config/database.config.js');
 const saltRounds = 10;
 
 exports.signup = function(req, res) {
-   User.findOne({userName: req.body.userName, password: req.body.password})
-      .then(function(data, err) {
-         var user = new User({userName: req.body.userName, password: req.body.password});
+   User.findOne({userName: req.body.userName}, function(err, data) {
+      if(data)
+         return res.status(400).send({message: "Username already exists"});
+      else {
+         bcrypt.hash(req.body.password, saltRounds).then(hashedPw => {
+            var user = new User({userName: req.body.userName, password: hashedPw});
 
-         user.save(function(err, data) {
-            console.log("User created!");
-            console.log(data);
-            res.send({userName: data.userName});
+            user.save(function(err, data) {
+               if(err) {
+                  console.log(err);
+                  return res.status(404).send({message: "Some error occurred while creating the User."});
+               } else {
+                  return res.send(data);
+               }
+            })
+         });
+      }
+   })
+}
+
+exports.login = function(req, res) {
+   let user = req.body.userName, pw = req.body.password;
+
+   User.findOne({userName: user}, function(err, user) {
+      if(user) {
+         bcrypt.compare(pw, user.password).then(match => {
+            if(match) { // Password matches
+               var token = jwt.sign({ id: user._id, userName: user.userName }, dbConfig.secret, {
+                  expiresIn: 86400 // expires in 24 hours
+                });
+               return res.status(200).send({message: "Successfully logged in!", token: token, auth: true});
+            } else {
+               return res.status(400).send({message: "Wrong password!", auth: false});
+            }
          })
-      })
+      } else {
+         return res.status(400).send({message: "User doesn't exist!", auth: false});
+      }
+   })
 }
 
 exports.getAllUsers = function(req, res) {

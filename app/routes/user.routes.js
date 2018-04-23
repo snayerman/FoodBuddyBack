@@ -40,7 +40,25 @@ module.exports = function(app) {
    app.put('/users/:userId', users.modifyUserName);
 
    // Log in
-   // app.post('/login', users.login);
+   app.post('/signup', function(req, res) {
+      oneOf([
+         req.check('userName')
+            .exists().withMessage('No username entered')
+            .isLength({min: 1}).withMessage('Username too short'),
+         req.check('password')
+            .exists().withMessage('No password entered')
+            .isLength({min: 5}).withMessage('Password too short')
+         ]
+      );
+      
+      var errors = req.validationErrors();
+      
+      if(!errors || errors.length == 0)
+         users.login(req, res);
+      else {
+         return res.status(400).send(errors);
+      }
+   });
 
    // Get self info
    // app.get('/me', users.getSelf);
