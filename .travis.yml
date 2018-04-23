@@ -5,7 +5,7 @@ node_js:
   - "7"
 
 before_install:
-  - npm i
+  - npm i -g npm@version-number
 
 script:
   - npm start
