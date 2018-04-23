@@ -5,7 +5,8 @@ node_js:
   - "7"
 
 before_install:
-  - npm i -g npm@5.8.0
+  - '[ "${TRAVIS_NODE_VERSION}" != "0.8" ] || npm install -g npm@1.4.28'
+  - npm install -g npm@latest
 
 script:
   - npm start
