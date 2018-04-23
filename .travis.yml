@@ -12,11 +12,12 @@ addons:
     organization: "snayerman-github"
     token:
       secure: "ca1c12bf20bd96fd0cd80644f57bfdde42d0ee09"
-    projectKey: "fbb"
 
 script:
   - npm test
+  - sonar-scanner
 
 cache:
   directories:
     - "node__modules"
+    - '$HOME/.sonar/cache'
