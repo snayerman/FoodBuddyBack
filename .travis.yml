@@ -7,6 +7,13 @@ before_install:
   - '[ "${TRAVIS_NODE_VERSION}" != "0.8" ] || npm install -g npm@1.4.28'
   - npm install -g npm@latest
 
+addons:
+  sonarcloud:
+    organization: "snayerman-github"
+    token:
+      secure: "ca1c12bf20bd96fd0cd80644f57bfdde42d0ee09"
+    projectKey: "fbb"
+
 script:
   - npm test
 
