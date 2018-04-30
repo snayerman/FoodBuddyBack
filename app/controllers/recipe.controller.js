@@ -18,15 +18,8 @@ var requestConfig = {
 //only if not in db then do api call
 exports.searchForRecipes = function(req, res) {
    //do checks to see if body has required params
-   var body = req.body;
-   var url = baseURLSearch;
+   /* var body = req.body;
 
-   /* Body should have:
-         includeIngredients: [String]  //comma-seperated list of ingredients to include
-         intolerances: [String]        //possible values: dairy, egg, gluten, peanut, sesame, seafood, shellfish, soy, sulfite, tree nut, and wheat.
-         diet: [String]                //possible values: pescetarian, lacto vegetarian, ovo vegetarian, vegan, paleo, primal, and vegetarian
-         excludeIngredients: [String]  //comma-seperated list of ingredients to exclude
-   */
   if(body.includeIngredients && body.includeIngredients.length > 0) {
      url += 'includeIngredients=';
      body.includeIngredients.map(function(ingredient, idx) {
@@ -55,8 +48,8 @@ exports.searchForRecipes = function(req, res) {
       })
    }
 
-   url += `number=5&fillIngredients=true&instructionsRequired=true&ranking=1`;
-
+   url += `number=5&fillIngredients=true&instructionsRequired=true&ranking=1`;*/
+   var url = baseURLSearch+req.url.split("?")[1];
    requestConfig.url = url;
 
    axios(requestConfig).then(recipes => {
@@ -64,7 +57,7 @@ exports.searchForRecipes = function(req, res) {
    }).catch(err => {
       console.log("err", err);
       return res.status(400).send(err);
-   })
+   }) 
 }
 
 exports.getRecipeById = function(req, res) {
