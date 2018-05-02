@@ -40,7 +40,7 @@ module.exports = function(app) {
    app.put('/users/:userId', users.modifyUserName);
 
    // Log in
-   app.post('/signup', function(req, res) {
+   app.post('/login', function(req, res) {
       oneOf([
          req.check('userName')
             .exists().withMessage('No username entered')
