@@ -29,7 +29,7 @@ module.exports = function(app) {
       if(!errors || errors.length == 0)
          users.signup(req, res);
       else {
-         return res.status(400).send({status: "error", message: errors.msg});
+         return res.status(400).send({status: "error", message: errors[0].msg});
       }
    });
 
@@ -56,7 +56,7 @@ module.exports = function(app) {
       if(!errors || errors.length == 0)
          users.login(req, res);
       else {
-         return res.status(400).send({status: "error", message: errors.msg});
+         return res.status(400).send({status: "error", message: errors[0].msg});
       }
    });
 
