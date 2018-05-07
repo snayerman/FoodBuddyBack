@@ -8,7 +8,7 @@ const saltRounds = 10;
 exports.signup = function(req, res) {
    User.findOne({userName: req.body.userName}, function(err, data) {
       if(data)
-         return res.status(400).send({message: "Username already exists"});
+         return res.status(400).send({status: "error", message: "Username already exists"});
       else {
          bcrypt.hash(req.body.password, saltRounds).then(hashedPw => {
             var user = new User({userName: req.body.userName, password: hashedPw});
@@ -16,9 +16,9 @@ exports.signup = function(req, res) {
             user.save(function(err, data) {
                if(err) {
                   console.log(err);
-                  return res.status(404).send({message: "Some error occurred while creating the User."});
+                  return res.status(404).send({status: "error", message: "Some error occurred while creating the User."});
                } else {
-                  return res.send(data);
+                  return res.status(200).send({status: "ok", ...data});
                }
             })
          });
