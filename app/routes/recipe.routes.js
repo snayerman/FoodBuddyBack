@@ -30,11 +30,10 @@ module.exports = function(app) {
       }
    })
 
-   app.get('/recipe/:recipeId', function(req, res) {
+   app.get('/recipe/:id', function(req, res) {
       oneOf([
-         req.check('recipeId')
-            .exists().withMessage('No recipe ID provided'),
-         req.check('recipeId').isNumeric().withMessage("Not a valid ID")
+         req.check('id')
+            .exists().withMessage('No recipe ID provided')
       ]);
 
       var errors = req.validationErrors();
