@@ -66,7 +66,6 @@ exports.deletePost = function(req, res) {
 
 exports.getAllPosts = function(req, res) {
    var token = getToken(req);
-   var self = verifyToken(token, res);
 
    Post.find({}, (err, posts) => {
       if(err)
