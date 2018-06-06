@@ -11,7 +11,7 @@ addons:
   sonarcloud:
     organization: "snayerman-github"
     token:
-      secure: "ca1c12bf20bd96fd0cd80644f57bfdde42d0ee09"
+      secure: "b0ed055747bb5c3379c3d2f3aa3da50b841d9d20"
 
 script:
   - npm test
