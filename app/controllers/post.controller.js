@@ -63,14 +63,3 @@ exports.deletePost = function(req, res) {
       }
    })
 }
-
-exports.getAllPosts = function(req, res) {
-   var token = getToken(req);
-
-   Post.find({}, (err, posts) => {
-      if(err)
-         return res.status(400).send({message: "unable to retrieve posts!"});
-      
-      return res.status(200).send({posts});
-   })
-}

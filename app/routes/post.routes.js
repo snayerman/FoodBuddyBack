@@ -5,9 +5,6 @@ module.exports = function(app) {
    // Create new post
    app.post('/post', posts.newPost);
 
-   // Get all posts
-   app.get('/post', posts.getAllPosts);
-
    // Delete post
    app.delete('/post/:id', posts.deletePost);
 
